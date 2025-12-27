@@ -1,0 +1,58 @@
+# =========================
+# ROS 2 / colcon build artifacts
+# =========================
+build/
+install/
+log/
+
+# =========================
+# Python cache / virtual env
+# =========================
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+venv/
+.env/
+
+# =========================
+# C++ build artifacts
+# =========================
+*.o
+*.so
+*.a
+*.out
+*.exe
+
+# =========================
+# VS Code / IDE
+# =========================
+.vscode/
+*.code-workspace
+
+# =========================
+# OS junk
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# ROS runtime / temp files
+# =========================
+*.log
+*.bag
+*.db3
+
+# =========================
+# CMake / build system leftovers
+# =========================
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+compile_commands.json
+
+# (JetBrains IDEs)
+.idea/
+# (Vim swap files)
+*.swp 
