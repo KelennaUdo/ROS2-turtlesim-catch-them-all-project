@@ -13,7 +13,7 @@ The system is composed of three ROS 2 nodes that communicate using topics and se
 
 A high-level architecture diagram is provided below:
 
-[`👉 **System Architecture (draw.io)**`](images/Catch_Them_All_Turtlesim_Project_Achitecture.drawio.png)
+[`👉 System Architecture (draw.io)`](images/Catch_Them_All_Turtlesim_Project_Achitecture.drawio.png)
 
 > The diagram illustrates node responsibilities, data flow through topics, and request–response interactions via services.
 
