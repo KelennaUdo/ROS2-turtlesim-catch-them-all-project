@@ -52,7 +52,7 @@ cmake_install.cmake
 Makefile
 compile_commands.json
 
-# # (JetBrains IDEs)
-# .idea/
-# # (Vim swap files)
-# *.swp 
+# (JetBrains IDEs)
+.idea/
+# (Vim swap files)
+*.swp 

@@ -13,8 +13,7 @@ The system is composed of three ROS 2 nodes that communicate using topics and se
 
 A high-level architecture diagram is provided below:
 
-👉 **System Architecture (draw.io)**  
-[`images/Catch_Them_All_Turtlesim_Project.png`](images/Catch_Them_All_Turtlesim_Project.png)
+[`👉 **System Architecture (draw.io)**`](images/Catch_Them_All_Turtlesim_Project_Achitecture.drawio.png)
 
 > The diagram illustrates node responsibilities, data flow through topics, and request–response interactions via services.
 
@@ -117,8 +116,6 @@ This node owns the **global state** of which turtles exist.
 - Each node has a **single clear responsibility**
 - The architecture scales naturally with parameters and launch files
 - The system design closely follows ROS 2 best practices
-
----
 
 ---
 
