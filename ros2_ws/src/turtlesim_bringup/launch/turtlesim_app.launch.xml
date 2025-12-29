@@ -1,0 +1,12 @@
+<launch>
+
+    <node pkg="turtlesim_main_py_pkg" exec="turtlesim_node">
+    </node>
+
+    <node pkg="turtlesim_main_py_pkg" exec="turtle_controller">
+    </node>
+
+    <node pkg="turtlesim_main_py_pkg" exec="turtle_spawner">
+    </node>
+
+</launch>
