@@ -1,6 +1,6 @@
 from setuptools import find_packages, setup
 
-package_name = 'turtle_sim_main_pkg'
+package_name = 'turtlesim_main_py_pkg'
 
 setup(
     name=package_name,
