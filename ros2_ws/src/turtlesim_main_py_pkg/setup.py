@@ -26,7 +26,6 @@ setup(
         'console_scripts': [
             "turtle_controller = turtlesim_main_py_pkg.turtle_controller:main",
             "turtle_spawner = turtlesim_main_py_pkg.turtle_spawner:main",
-            "turtlesim_node = turtlesim_main_py_pkg.turtlesim_node:main"
         ],
     },
 )
