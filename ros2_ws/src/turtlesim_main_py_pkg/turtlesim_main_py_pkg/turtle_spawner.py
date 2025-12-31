@@ -12,7 +12,7 @@ class MyOOPNode(Node):
     
     def timer_callback(self):
         self.get_logger().info("Hello " + str(self.counter_) )
-        self.counter_ += 1
+        self.counter_ += 2
 
 
 
