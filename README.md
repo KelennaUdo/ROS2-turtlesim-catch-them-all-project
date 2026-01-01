@@ -45,7 +45,6 @@ This node represents the **environment** in which the system operates.
 - Subscribes to `/turtle1/pose` for real-time feedback
 - Publishes velocity commands to `/turtle1/cmd_vel`
 - Runs a periodic control loop using a proportional (P) controller ([see design notes](images/theroy_behind_the_proportional_controller.png))
-
 - Subscribes to `/alive_turtles` to identify available targets
 - Selects a turtle to pursue (first or closest, depending on logic)
 - Acts as a **service client** for `/catch_turtle` when a target is reached
