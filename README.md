@@ -13,7 +13,7 @@ The system is composed of three ROS 2 nodes that communicate using topics and se
 
 A high-level architecture diagram is provided below:
 
-[`👉 System Architecture (draw.io)`](images/Catch_Them_All_Turtlesim_Project.jpg)
+[`👉 System Architecture (draw.io)`](images/Catch_Them_All_Turtlesim_Project.drawio.png)
 
 > The diagram illustrates node responsibilities, data flow through topics, and request–response interactions via services.
 
@@ -44,7 +44,8 @@ This node represents the **environment** in which the system operates.
 - Controls the master turtle (`turtle1`)
 - Subscribes to `/turtle1/pose` for real-time feedback
 - Publishes velocity commands to `/turtle1/cmd_vel`
-- Runs a periodic control loop using a **proportional (P) controller**
+- Runs a periodic control loop using a [proportional (P) controller](https://en.wikipedia.org/wiki/Proportional_control) ([see design notes](images/theroy_behind_the_proportional_controller.png))
+
 - Subscribes to `/alive_turtles` to identify available targets
 - Selects a turtle to pursue (first or closest, depending on logic)
 - Acts as a **service client** for `/catch_turtle` when a target is reached
