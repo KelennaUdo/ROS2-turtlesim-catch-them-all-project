@@ -1,45 +1,73 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*- 
+# -*- coding: utf-8 -*-
 import rclpy
 from rclpy.node import Node
+from turtlesim.srv import Spawn
+import random
 
-class MyOOPNode(Node):
-    def __init__(self, name):
+
+class TurtleSpawner(Node):
+    def __init__(self, name: str):
         super().__init__(name)
-        self.counter_ = 0
-        self.get_logger().info('MyOOPNode 2 has been initialized!')
-        self.create_timer(1.0, self.timer_callback)
-    
-    def timer_callback(self):
-        self.get_logger().info("Hello " + str(self.counter_) )
-        self.counter_ += 2
+        self.get_logger().info('TurtleSpawner has been initialized!')
 
+        # Client for the turtlesim spawn service.
+        self.spawn_client_ = self.create_client(Spawn, '/spawn')
+        # Timer period (seconds) controls how often a new turtle is spawned.
+        self.spawn_period_ = (
+            self.declare_parameter('spawn_period', 1.0).value
+        )
+        self.spawn_count_ = 0
+        self._service_warned = False
+        self.create_timer(self.spawn_period_, self.timer_callback)
+
+    def timer_callback(self) -> None:
+        # Avoid sending requests until the service becomes available.
+        if not self.spawn_client_.service_is_ready():
+            if not self._service_warned:
+                self.get_logger().warn('Waiting for /spawn service...')
+                self._service_warned = True
+            return
+
+        self._service_warned = False
+        request = Spawn.Request()
+        # Generate a simple repeating pattern of spawn positions in-bounds.
+        request.x = random.uniform(1.0, 9.0)
+        request.y = random.uniform(1.0, 9.0)
+        request.theta = 0.0
+        # Name turtles sequentially so they are easy to identify.
+        request.name = f'turtle{self.spawn_count_ + 2}'
+
+        # Call the service asynchronously to keep the timer callback fast.
+        future = self.spawn_client_.call_async(request)
+        future.add_done_callback(self.handle_spawn_response)
+
+        self.spawn_count_ += 1
+
+    def handle_spawn_response(self, future) -> None:
+        # Log the outcome of the spawn request.
+        try:
+            response = future.result()
+        except Exception as exc:
+            self.get_logger().error(f'Failed to spawn turtle: {exc}')
+            return
+
+        self.get_logger().info(f'Spawned turtle: {response.name}')
 
 
 def main(args=None):
-    # Initialize the ROS 2 Python client library
     rclpy.init(args=args)
-    
-    # Create an instance of MyOOPNode
-    node = MyOOPNode("py_oop_node_2")
-    
-    # Log an info message to indicate the node has started
-    node.get_logger().info('Hello 2, ROS 2 from MyOOPNode!')
-    
+    node = TurtleSpawner('turtle_spawner')
+
     try:
-        # Keep the node running, processing callbacks
         rclpy.spin(node)
     except KeyboardInterrupt:
-        # Handle Ctrl+C gracefully
         pass
     finally:
-        # This block always runs, even if an exception occurs
-        node.get_logger().info('Shutting down MyOOPNode...')
-        # Destroy the node explicitly
-        node.destroy_node() 
-        # Shutdown the ROS 2 client library
+        node.get_logger().info('Shutting down TurtleSpawner...')
+        node.destroy_node()
         rclpy.shutdown()
+
 
 if __name__ == '__main__':
     main()
-# End of my_oop_node.py
