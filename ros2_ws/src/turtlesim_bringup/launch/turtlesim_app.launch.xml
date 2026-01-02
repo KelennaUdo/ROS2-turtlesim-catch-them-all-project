@@ -3,10 +3,12 @@
     <node pkg="turtlesim" exec="turtlesim_node" name="turtlesim_node">
     </node>
 
-    <node pkg="turtlesim_main_py_pkg" exec="turtle_controller">
-    </node>
 
     <node pkg="turtlesim_main_py_pkg" exec="turtle_spawner">
     </node>
 
+
+    <node pkg="turtlesim_main_py_pkg" exec="turtle_controller">
+    </node>
+    
 </launch>
