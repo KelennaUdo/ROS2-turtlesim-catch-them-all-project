@@ -222,3 +222,4 @@ The controller signals a catch via a service call rather than publishing a topic
 - ROS 2 Documentation  
 - Turtlesim package  
 - Project guide: *ROS 2 for Beginners – Turtlesim “Catch Them All”*
+- [Proportional Control Theory](https://en.wikipedia.org/wiki/Proportional_control)
