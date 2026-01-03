@@ -9,6 +9,33 @@ Rather than focusing only on code, this project emphasizes **system design**, **
 
 ---
 
+## Table of Contents
+
+- [📐 System Architecture](#-system-architecture)
+- [🧩 Nodes Overview](#-nodes-overview)
+  - [1. `turtlesim_node` (simulation backend)](#1-turtlesim_node-simulation-backend)
+  - [2. `turtle_controller` (autonomous controller)](#2-turtle_controller-autonomous-controller)
+  - [3. `turtle_spawner` (population manager)](#3-turtle_spawner-population-manager)
+- [📡 Topics](#-topics)
+  - [`/turtle1/pose`](#turtle1pose)
+  - [`/turtle1/cmd_vel`](#turtle1cmd_vel)
+  - [`/alive_turtles`](#alive_turtles)
+- [🔁 Services](#-services)
+  - [`/spawn`](#spawn)
+  - [`/kill`](#kill)
+  - [`/catch_turtle` (custom service)](#catch_turtle-custom-service)
+- [🧠 Design Notes](#-design-notes)
+- [🚀 How to Run](#-how-to-run)
+  - [Prerequisites](#prerequisites)
+  - [Build](#build)
+  - [Run](#run)
+- [🚀 Design Rationale](#-design-rationale)
+  - [Control Loop](#control-loop)
+  - [Target Selection](#target-selection)
+  - [Catch Flow](#catch-flow)
+- [🚀 Future Extensions](#-future-extensions)
+- [📚 References](#-references)
+
 ## 📐 System Architecture
 
 The system is composed of three ROS 2 nodes that communicate using topics and services.
@@ -123,20 +150,70 @@ This node owns the **global state** of which turtles exist.
 
 ## 🚀 How to Run
 
-will be added soon
+### Prerequisites
+
+- ROS 2 installed and sourced
+- `turtlesim` package available
+
+### Build
+
+From the workspace root:
+
+```bash
+cd ros2_ws
+colcon build
+source install/setup.bash
+```
+
+### Run
+
+In separate terminals (after sourcing `install/setup.bash` in each):
+
+```bash
+ros2 run turtlesim turtlesim_node
+```
+
+```bash
+ros2 run turtlesim_main_py_pkg turtle_spawner
+```
+
+```bash
+ros2 run turtlesim_main_py_pkg turtle_controller
+```
+
+Alternatively, use the bringup launch file:
+
+```bash
+ros2 launch turtlesim_bringup turtlesim_app.launch.xml
+```
+
+or the helper script (just run this command), but make sure it is executable and has the correct workspace path:
+
+```bash
+ros2_ws/src/launch_helper/helper.sh
+```
 
 ---
 
 ## 🚀 Design Rationale
 
-will be added soon
+### Control Loop
+
+The controller uses a proportional (P) controller so velocity scales with position error. This keeps the system responsive without overshooting heavily in a simple 2D simulator.
+
+### Target Selection
+
+Targets are selected from the `/alive_turtles` list. The selection strategy is to take the closest. This can be easily modified to implement different strategies (e.g. random selection, first in list).
+
+### Catch Flow
+
+The controller signals a catch via a service call rather than publishing a topic event. This enforces a single, acknowledged removal action by the spawner and prevents duplicate kills.
 
 ## 🚀 Future Extensions
 
-- Add parameters (e.g. spawn rate, target selection strategy)
+- Implement different control strategies (e.g. full PID controller)
 - Support multiple controllers
 - Visualize performance metrics
-- Package system using launch files and YAML configuration
 
 ---
 
