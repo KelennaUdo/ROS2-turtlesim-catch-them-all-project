@@ -3,6 +3,8 @@
 This project implements an autonomous multi-node ROS 2 system using the **turtlesim** simulator.  
 The goal is to control a master turtle (`turtle1`) that continuously seeks out, catches, and removes other turtles spawned in the environment.
 
+![Demo video](media/Turtlesim_Demo.gif)
+
 Rather than focusing only on code, this project emphasizes **system design**, **clear separation of responsibilities**, and **correct use of ROS 2 communication patterns** (topics, services, and parameters).
 
 ---
@@ -13,7 +15,7 @@ The system is composed of three ROS 2 nodes that communicate using topics and se
 
 A high-level architecture diagram is provided below:
 
-[`👉 System Architecture (draw.io)`](images/Catch_Them_All_Turtlesim_Project.jpg)
+[`👉 System Architecture (draw.io)`](media/Catch_Them_All_Turtlesim_Project.jpg)
 
 > The diagram illustrates node responsibilities, data flow through topics, and request–response interactions via services.
 
@@ -44,7 +46,7 @@ This node represents the **environment** in which the system operates.
 - Controls the master turtle (`turtle1`)
 - Subscribes to `/turtle1/pose` for real-time feedback
 - Publishes velocity commands to `/turtle1/cmd_vel`
-- Runs a periodic control loop using a proportional (P) controller ([see design notes](images/theroy_behind_the_proportional_controller.png))
+- Runs a periodic control loop using a proportional (P) controller ([see design notes](media/theroy_behind_the_proportional_controller.png))
 - Subscribes to `/alive_turtles` to identify available targets
 - Selects a turtle to pursue (first or closest, depending on logic)
 - Acts as a **service client** for `/catch_turtle` when a target is reached
